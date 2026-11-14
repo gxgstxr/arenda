@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Аренда</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -20,6 +20,8 @@
 html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 .wrap{max-width:1100px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 12px) 16px calc(env(safe-area-inset-bottom) + 24px)}
 header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+html,body,button,a,input,.row,.chip{touch-action:manipulation;}
+html,body{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 h1{font-size:22px;margin:0}h2{font-size:16px;margin:0 0 12px}.sub{color:var(--mute);font-size:13px}
 .btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:14px}
 .btn:active{opacity:.6}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
@@ -53,7 +55,7 @@ h1{font-size:22px;margin:0}h2{font-size:16px;margin:0 0 12px}.sub{color:var(--mu
 .more{color:var(--blue);background:none;border:0;padding:8px 0 0;font-size:14px}
 svg text{fill:var(--mute);font-size:11px}
 .setup{max-width:520px;margin:10vh auto 0}
-.setup textarea{width:100%;min-height:90px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px;font-size:15px;margin:12px 0}
+.setup textarea{width:100%;min-height:90px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px;font-size:16px;margin:12px 0}
 .err{color:var(--red);font-size:14px;margin-top:8px}
 .hidden{display:none}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--mute);border-top-color:transparent;border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px}
@@ -94,6 +96,11 @@ svg text{fill:var(--mute);font-size:11px}
   </div>
 </div>
 
+<script>
+// запрет зума: щипок двумя пальцами и двойной тап
+['gesturestart','gesturechange','gestureend'].forEach(e=>document.addEventListener(e,ev=>ev.preventDefault(),{passive:false}));
+document.addEventListener('touchmove',e=>{ if(e.touches.length>1) e.preventDefault(); },{passive:false});
+</script>
 <script>
 const $ = id => document.getElementById(id);
 const store = {

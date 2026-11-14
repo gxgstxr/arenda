@@ -1,6 +1,6 @@
 // Кэширует только оболочку приложения (страницу и иконки), чтобы оно открывалось быстро.
 // Данные о долгах сервис-воркер не кэширует — они запрашиваются у Google каждый раз.
-const CACHE = 'arenda-v2';
+const CACHE = 'arenda-v3';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL))); self.skipWaiting(); });
 self.addEventListener('activate', e => {
