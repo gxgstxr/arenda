@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Аренда</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Аренда">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f1115">
+<meta name="robots" content="noindex, nofollow">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16181d;--mute:#6b7280;--line:#e5e7eb;--red:#d33a2c;--amber:#d98a0b;--green:#1f8a4c;--blue:#2563eb;--bar:#e9ecf1}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#181b21;--ink:#eceef2;--mute:#9aa1ad;--line:#2a2e36;--red:#f2675a;--amber:#f0a83a;--green:#3fbf74;--blue:#6b9cff;--bar:#262a32}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 12px) 16px calc(env(safe-area-inset-bottom) + 24px)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+h1{font-size:22px;margin:0}h2{font-size:16px;margin:0 0 12px}.sub{color:var(--mute);font-size:13px}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:14px}
+.btn:active{opacity:.6}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.kpi .l{color:var(--mute);font-size:12px}.kpi .v{font-size:clamp(17px,4.6vw,22px);white-space:nowrap;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:12px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:1.6fr 1fr;gap:12px}@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.search{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:16px;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:5px 11px;font-size:13px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
+.row:first-child{border-top:0}
+.nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.amt{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.meta{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-size:12px;color:var(--mute)}.meta span{white-space:nowrap}
+.track{grid-column:1/-1;height:6px;background:var(--bar);border-radius:3px;overflow:hidden}
+.fill{height:100%;border-radius:3px}
+.tag{padding:1px 7px;border-radius:999px;font-weight:600;font-size:11px;color:#fff}
+.r{background:var(--red)}.a{background:var(--amber)}.g{background:var(--mute)}
+.pays{grid-column:1/-1;display:none;font-size:13px;background:var(--bg);border-radius:10px;padding:8px 10px;margin-top:4px}
+.row.open .pays{display:block}
+.pays div{display:flex;justify-content:space-between;padding:2px 0}
+.hb{display:grid;grid-template-columns:110px 1fr auto;gap:8px;align-items:center;font-size:13px;margin:6px 0}
+.hb .t{height:10px;background:var(--bar);border-radius:5px;overflow:hidden}.hb .t div{height:100%;background:var(--red);border-radius:5px}
+.num{font-variant-numeric:tabular-nums;text-align:right}
+.legend{display:flex;gap:12px;font-size:12px;color:var(--mute);margin-bottom:8px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.pay{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:5px 0;border-top:1px solid var(--line)}.pay:first-child{border-top:0}
+.more{color:var(--blue);background:none;border:0;padding:8px 0 0;font-size:14px}
+svg text{fill:var(--mute);font-size:11px}
+.setup{max-width:520px;margin:10vh auto 0}
+.setup textarea{width:100%;min-height:90px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px;font-size:15px;margin:12px 0}
+.err{color:var(--red);font-size:14px;margin-top:8px}
+.hidden{display:none}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--mute);border-top-color:transparent;border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px}
+@keyframes s{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- первый запуск: вставить ссылку на дашборд -->
+  <div id="setup" class="setup hidden">
+    <h1>Аренда</h1>
+    <p class="sub">Вставьте ссылку на дашборд — ту, что выдаёт функция <b>dashLink</b> (оканчивается на <b>/exec?k=…</b>). Она сохранится только на этом телефоне.</p>
+    <textarea id="link" placeholder="https://script.google.com/macros/s/…/exec?k=…" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea>
+    <button class="btn primary" id="save">Сохранить</button>
+    <div class="err" id="setupErr"></div>
+  </div>
+
+  <div id="app" class="hidden">
+    <header>
+      <div><h1>Аренда</h1><div class="sub" id="asof"></div></div>
+      <button class="btn" id="reload" aria-label="Обновить">↻</button>
+    </header>
+    <div class="err" id="err"></div>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid">
+      <div><div class="card"><h2>Должники</h2>
+        <input class="search" id="q" type="search" placeholder="Поиск арендатора">
+        <div class="chips" id="chips"></div><div id="list"></div><button class="more" id="more"></button></div></div>
+      <div>
+        <div class="card"><h2>Долг по объектам</h2><div id="objs"></div></div>
+        <div class="card"><h2>Деньги по месяцам</h2><div class="legend"><span><i style="background:var(--green)"></i>пришло</span><span><i style="background:var(--red)"></i>расходы</span><span><i style="background:var(--amber)"></i>на личные</span></div><div id="months"></div></div>
+        <div class="card"><h2>Остатки на счетах</h2><div id="bal"></div></div>
+        <div class="card"><h2>Оплаты за 7 дней</h2><div id="recent"></div><button class="more" id="moreR"></button></div>
+        <button class="more" id="logout" style="color:var(--mute)">Сменить ссылку</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} },
+  del(k){ try { localStorage.removeItem(k); } catch(e){} }
+};
+const f = n => Math.round(n).toLocaleString('ru-RU');
+const dt = t => t ? new Date(t).toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit'}) : '—';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// ---------- ссылка ----------
+function parseLink(s){
+  try {
+    const u = new URL(String(s).trim());
+    const k = u.searchParams.get('k');
+    if (u.hostname !== 'script.google.com' || !/\/exec$/.test(u.pathname) || !k) return null;
+    return u.origin + u.pathname + '?k=' + encodeURIComponent(k);
+  } catch(e){ return null; }
+}
+let LINK = store.get('dashLink');
+
+function showSetup(msg){ $('app').classList.add('hidden'); $('setup').classList.remove('hidden'); $('setupErr').textContent = msg || ''; }
+$('save').onclick = () => {
+  const l = parseLink($('link').value);
+  if (!l) { $('setupErr').textContent = 'Это не та ссылка. Нужна ссылка вида https://script.google.com/macros/s/…/exec?k=…'; return; }
+  LINK = l; store.set('dashLink', l); start();
+};
+$('logout').onclick = () => { if (confirm('Удалить сохранённую ссылку с этого телефона?')) { store.del('dashLink'); store.del('dashData'); LINK = null; showSetup(); } };
+
+// ---------- данные ----------
+let D = null, loading = false;
+async function load(){
+  if (loading) return; loading = true;
+  $('reload').innerHTML = '<span class="spin"></span>'; $('err').textContent = '';
+  try {
+    const r = await fetch(LINK + '&format=json', { redirect: 'follow', cache: 'no-store' });
+    const j = await r.json();
+    if (j.error) { if (!D) { store.del('dashLink'); showSetup('Ссылка не подходит: ' + j.error + '. Возможно, ключ сменили (resetDashKey) — возьмите новую через dashLink.'); } else $('err').textContent = j.error; return; }
+    D = j; store.set('dashData', JSON.stringify(j)); render();
+  } catch(e) {
+    $('err').textContent = 'Не удалось обновить данные' + (D ? ' — показаны последние сохранённые.' : '. Проверьте интернет и что в Apps Script развернута новая версия.');
+  } finally { loading = false; $('reload').textContent = '↻'; }
+}
+$('reload').onclick = load;
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && D && Date.now() - (D.fetchedAt || 0) > 5 * 60 * 1000) load();
+});
+
+// ---------- отрисовка ----------
+let cur = 'Все', showAll = false, allR = false, query = '';
+function render(){
+  D.fetchedAt = Date.now();
+  const debtors = D.tenants.filter(t => t.debt > 0);
+  const total = debtors.reduce((a,t)=>a+t.debt,0), over = D.tenants.filter(t=>t.debt<0).reduce((a,t)=>a+t.debt,0);
+  const late = debtors.filter(t=>t.months>=2), lateSum = late.reduce((a,t)=>a+t.debt,0);
+  const pct = D.accruedMonth ? Math.round(D.rentThisMonth/D.accruedMonth*100) : 0;
+  const cash = (D.balances||[]).reduce((a,b)=>a+b.v,0);
+  $('asof').textContent = 'Обновлено ' + new Date(D.generated).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) + ' · выписки по ' + dt(D.lastStatement);
+  $('kpis').innerHTML = [
+    ['Общий долг', f(total)+' ₽', debtors.length+' должников', 'var(--red)'],
+    ['Долг 2+ месяца', f(lateSum)+' ₽', late.length+' арендаторов', ''],
+    ['Собрано аренды за '+D.monthLabel, f(D.rentThisMonth)+' ₽', pct+'% от того, что уже должны были заплатить', ''],
+    ['На счетах', (D.balances||[]).length ? f(cash)+' ₽' : '—', 'по последним выпискам', ''],
+    ['Авансы и переплаты', f(Math.abs(over))+' ₽', 'заплатили вперёд', '']
+  ].map(k => '<div class="kpi"><div class="l">'+k[0]+'</div><div class="v"'+(k[3]?' style="color:'+k[3]+'"':'')+'>'+k[1]+'</div><div class="s">'+k[2]+'</div></div>').join('');
+
+  const objs = [...new Set(debtors.map(t=>t.obj))];
+  if (cur !== 'Все' && objs.indexOf(cur) < 0) cur = 'Все';
+  $('chips').innerHTML = ['Все',...objs].map(o=>'<button class="chip'+(o===cur?' on':'')+'">'+esc(o)+'</button>').join('');
+  renderList();
+
+  const byObj = {}; debtors.forEach(t => byObj[t.obj]=(byObj[t.obj]||0)+t.debt);
+  const ob = Object.entries(byObj).sort((a,b)=>b[1]-a[1]), omax = ob.length?ob[0][1]:1;
+  $('objs').innerHTML = ob.map(([o,v])=>'<div class="hb"><span>'+esc(o)+'</span><div class="t"><div style="width:'+(v/omax*100)+'%"></div></div><span class="num">'+f(v)+'</span></div>').join('') || '<div class="sub">Долгов нет</div>';
+
+  renderMonths();
+  $('bal').innerHTML = (D.balances||[]).map(b=>'<div class="pay"><span>'+esc(b.e)+'</span><b class="num">'+f(b.v)+' ₽</b></div>').join('') || '<div class="sub">Нет данных</div>';
+  renderRecent();
+  $('setup').classList.add('hidden'); $('app').classList.remove('hidden');
+}
+
+function renderList(){
+  const debtorsAll = query ? D.tenants : D.tenants.filter(t => t.debt > 0);   // при поиске показываем и тех, у кого долга нет
+  const rows = debtorsAll.filter(t => (cur==='Все' || t.obj===cur) && (!query || t.name.toLowerCase().indexOf(query) >= 0));
+  const max = Math.max(1, ...rows.map(t => t.debt)), vis = (showAll || query) ? rows : rows.slice(0,15);
+  $('list').innerHTML = vis.map(t => {
+    const c = t.months>=3?'r':t.months>=1?'a':'g';
+    const mo = t.debt <= 0 ? '<span class="tag" style="background:var(--green)">'+(t.debt<0?'аванс':'долга нет')+'</span>'
+      : t.months>=1 ? '<span class="tag '+c+'">'+String(t.months).replace('.',',')+' мес.</span>' : '<span class="tag g">&lt; мес.</span>';
+    const pays = (t.pays||[]).length ? (t.pays.map(p=>'<div><span>'+dt(p.d)+'</span><b class="num">'+f(p.sum)+' ₽</b></div>').join('')) : '<div class="sub">Оплат аренды в выписках нет</div>';
+    return '<div class="row"><div class="nm">'+esc(t.name)+'</div><div class="amt">'+f(t.debt)+' ₽</div>'+
+      '<div class="track"><div class="fill" style="width:'+Math.max(2,Math.max(0,t.debt)/max*100)+'%;background:var(--'+(c==='r'?'red':c==='a'?'amber':'mute')+')"></div></div>'+
+      '<div class="meta">'+mo+'<span>'+esc(t.obj)+'</span><span>ставка '+f(t.rate)+'</span><span>посл. оплата '+dt(t.lastPay)+'</span></div>'+
+      '<div class="pays"><div class="sub" style="margin-bottom:4px">Последние оплаты аренды</div>'+pays+'</div></div>';
+  }).join('') || '<div class="sub">'+(query?'Не найдено':'Долгов нет')+'</div>';
+  $('more').textContent = (!query && rows.length>15) ? (showAll?'Свернуть':'Показать всех ('+rows.length+')') : '';
+}
+$('list').onclick = e => { const r = e.target.closest('.row'); if (r) r.classList.toggle('open'); };
+$('chips').onclick = e => { if(e.target.tagName!=='BUTTON') return; cur = e.target.textContent; showAll=false;
+  [...$('chips').children].forEach(b=>b.classList.toggle('on', b.textContent===cur)); renderList(); };
+$('more').onclick = () => { showAll=!showAll; renderList(); };
+$('q').oninput = e => { query = e.target.value.trim().toLowerCase(); renderList(); };
+
+function renderMonths(){
+  const M = D.months||[]; if(!M.length){ $('months').innerHTML='<div class="sub">Нет данных</div>'; return; }
+  const W=360,H=170,pad=24,bw=(W-pad)/M.length, max=Math.max(...M.map(m=>Math.max(m.inc,m.exp+m.own)))||1;
+  const y=v=>H-20-(v/max)*(H-34); let s='';
+  M.forEach((m,i)=>{ const x=pad+i*bw, w=Math.min(14,bw/2.6);
+    s+='<rect x="'+(x+bw/2-w-1)+'" y="'+y(m.inc)+'" width="'+w+'" height="'+(H-20-y(m.inc))+'" rx="2" fill="var(--green)"></rect>';
+    s+='<rect x="'+(x+bw/2+1)+'" y="'+y(m.exp)+'" width="'+w+'" height="'+(H-20-y(m.exp))+'" rx="2" fill="var(--red)"></rect>';
+    s+='<rect x="'+(x+bw/2+1)+'" y="'+y(m.exp+m.own)+'" width="'+w+'" height="'+(y(m.exp)-y(m.exp+m.own))+'" rx="2" fill="var(--amber)"></rect>';
+    const lab=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'][+m.m.slice(5)-1];
+    s+='<text x="'+(x+bw/2)+'" y="'+(H-5)+'" text-anchor="middle">'+lab+'</text>'; });
+  s+='<text x="0" y="12">'+(max/1e6).toFixed(1).replace('.',',')+' млн</text>';
+  const L = M[M.length-1];
+  $('months').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" width="100%">'+s+'</svg><div class="sub">'+L.m.split('-').reverse().join('.')+': пришло '+f(L.inc)+' (аренда '+f(L.rent)+'), расходы '+f(L.exp)+', на личные '+f(L.own)+'</div>';
+}
+function renderRecent(){
+  const R = D.recent||[], v = allR ? R : R.slice(0,12);
+  $('recent').innerHTML = v.map(r=>'<div class="pay"><span>'+dt(r.d)+' · '+esc(r.who)+'</span><b class="num">'+f(r.sum)+'</b></div>').join('') || '<div class="sub">Оплат не было</div>';
+  $('moreR').textContent = R.length>12 ? (allR?'Свернуть':'Показать все ('+R.length+')') : '';
+}
+$('moreR').onclick = () => { allR=!allR; renderRecent(); };
+
+// ---------- старт ----------
+function start(){
+  const cached = store.get('dashData');
+  if (cached) { try { D = JSON.parse(cached); render(); } catch(e){} }
+  else { $('setup').classList.add('hidden'); $('app').classList.remove('hidden'); $('asof').textContent = 'Загрузка…'; }
+  load();
+}
+if (LINK) start(); else showSetup();
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
