@@ -8,7 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Аренда">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0f1115">
+<meta name="theme-color" content="#0B0B0C">
 <meta name="robots" content="noindex, nofollow">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
@@ -29,6 +29,23 @@ h1{font-size:22px;margin:0}h2{font-size:16px;margin:0 0 12px}.sub{color:var(--mu
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .kpi .l{color:var(--mute);font-size:12px}.kpi .v{font-size:clamp(17px,4.6vw,22px);white-space:nowrap;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
 .kpi .s{font-size:12px;color:var(--mute)}
+.kpi.tap{cursor:pointer;position:relative}.kpi.tap:active{opacity:.7}
+.kpi.tap::after{content:'›';position:absolute;right:12px;top:10px;color:var(--mute);font-size:16px}
+.kpi.sel{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink) inset}
+.kpi.wide{grid-column:1/-1}
+.bk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;grid-column:1/-1}
+@media(max-width:520px){.bk{grid-template-columns:repeat(2,1fr)}}
+.bk .kpi{padding:10px 12px}.bk .kpi .v{font-size:clamp(15px,4.2vw,19px)}
+.flt{display:flex;justify-content:space-between;align-items:center;font-size:13px;background:var(--bg);border-radius:10px;padding:7px 10px;margin-bottom:10px}
+.flt button{border:0;background:none;color:var(--blue);font-size:13px;padding:0}
+.sc{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:24px;border-radius:999px;font-size:13px;font-weight:700}
+.sg{background:#e3f4e6;color:#1d6b33}.sy{background:#fbeed5;color:#7a4b06}.sr{background:#fbe3e3;color:#8f1d1d}.sn{background:var(--bar);color:var(--mute)}
+.rr{padding:10px 0;border-top:1px solid var(--line);cursor:pointer}.rr:first-child{border-top:0}
+.rh{display:flex;align-items:center;gap:10px}.rh .nm{flex:1;min-width:0}
+.rm{display:none;margin-top:8px;background:var(--bg);border-radius:10px;padding:4px 10px}.rr.open .rm{display:block}
+.mrow{padding:8px 0;border-top:1px solid var(--line);font-size:13px}.mrow:first-child{border-top:0}
+.mt{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pill{border-radius:999px;padding:1px 8px;font-size:12px;white-space:nowrap}
 .grid{display:grid;grid-template-columns:1.6fr 1fr;gap:12px}@media(max-width:820px){.grid{grid-template-columns:1fr}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
 .search{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:16px;margin-bottom:10px}
@@ -60,9 +77,63 @@ svg text{fill:var(--mute);font-size:11px}
 .hidden{display:none}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--mute);border-top-color:transparent;border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px}
 @keyframes s{to{transform:rotate(360deg)}}
+
+/* ===== тёмная тема (в стиле приложения «Игра»: iOS, крупные скругления, золото) ===== */
+:root{color-scheme:dark;--bg:#0B0B0C;--card:#1A1A1C;--card2:#232326;--ink:#F2F2F4;--mute:#8E8E93;--line:#2C2C2E;
+  --red:#FF6B5E;--amber:#E0A92A;--gold:#E0A92A;--gold2:#C9971C;--green:#3DD68C;--blue:#E0A92A;--bar:#2C2C2E}
+html,body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+h1{font-size:30px;font-weight:800;letter-spacing:-.5px}
+h2{font-size:18px;font-weight:600;letter-spacing:-.2px}
+.card{background:var(--card);border:0;border-radius:22px;padding:16px}
+.kpi{background:var(--card);border:0;border-radius:22px;padding:14px 16px;transition:transform .15s}
+.kpi.tap:active{transform:scale(.97);opacity:1}
+.kpi.sel{box-shadow:0 0 0 1.5px var(--gold) inset}
+.kpi .l{color:var(--mute);font-size:13px}
+.kpi .v{font-weight:700;letter-spacing:-.3px}
+.kpi.tap::after{color:var(--gold)}
+.kpi[data-k=total]::after{content:'%';font-size:13px;font-weight:700;top:12px}
+.bk .kpi.tap::after{content:'↓';font-size:14px}
+.btn{background:var(--card);border:0;border-radius:12px;color:var(--ink);font-weight:600}
+.btn.primary{background:var(--gold);color:#1A1300}
+.search{background:var(--card2);border:0;border-radius:12px;color:var(--ink)}
+.search::placeholder{color:var(--mute)}
+.grid>div{min-width:0}
+.chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;background:var(--card2);border:0;border-radius:99px;padding:7px 14px;font-weight:500;color:var(--ink)}
+.chip.on{background:var(--gold);color:#1A1300;border:0;font-weight:600}
+.row,.rr,.mrow,.pay{border-color:var(--line)}
+.flt{background:var(--card2);border-radius:12px}
+.rm{background:var(--card2);border-radius:14px}
+.sg{background:rgba(61,214,140,.16);color:#5BE3A1}.sy{background:rgba(224,169,42,.18);color:#F2C14E}.sr{background:rgba(255,107,94,.17);color:#FF8A80}.sn{background:var(--card2);color:var(--mute)}
+.tag{color:#0B0B0C}.tag.g{background:#48484A;color:var(--ink)}
+.more{color:var(--gold);font-weight:600}
+.setup textarea{background:var(--card);border:0;border-radius:14px;color:var(--ink)}
+.err{color:var(--red)}
+#load{position:fixed;inset:0;z-index:10;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s}
+#load.hide{opacity:0;visibility:hidden}
+#crown{width:110px;height:110px;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+#ttl{color:var(--gold);font-size:24px;font-weight:700;letter-spacing:7px;margin-top:22px;opacity:0;animation:fade .8s .2s forwards}
+#lsub{color:var(--mute);font-size:13px;font-style:italic;letter-spacing:.5px;margin-top:8px;opacity:0;animation:fade .8s .5s forwards}
+@keyframes fade{to{opacity:1}}
+.mbox{background:var(--card2);border-radius:14px;padding:10px 12px;margin-top:8px}
+.mh{font-weight:700;margin-bottom:6px}
+.mline{display:flex;justify-content:space-between;align-items:center;padding:4px 6px;margin:0 -6px;border-radius:8px;font-size:14px}
+.mline i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.mline.on{background:rgba(224,169,42,.14)}
+.ch{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.ch h2{margin-bottom:12px}
+.lnk{border:0;background:none;color:var(--gold);font-weight:600;font-size:14px;padding:0;white-space:nowrap}
+.pays .x{display:none}.pays.all .x{display:flex}
+.pall{border:0;background:var(--card);color:var(--gold);font-weight:600;font-size:13px;border-radius:10px;padding:8px 10px;margin-top:6px;width:100%}
+.mcard{background:var(--card2);border-radius:16px;padding:12px 14px;margin-bottom:10px}.mcard.tot{box-shadow:0 0 0 1.5px var(--gold) inset}
+.mb{height:6px;background:var(--bar);border-radius:3px;overflow:hidden;margin:2px 0 6px}.mb div{height:100%;border-radius:3px}
+#lbar{width:140px;height:3px;border-radius:2px;background:#3A2F14;margin-top:34px;overflow:hidden}
+#lbar i{display:block;width:40%;height:100%;border-radius:2px;background:var(--gold);animation:run 1.2s ease-in-out infinite}
+@keyframes run{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
 </style>
 </head>
 <body>
+<div id="load"><svg id="crown" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="#E0A92A" stroke-width="10"><path d="M18.7 45.0 A44 44 0 0 1 98.1 38.0"/><path d="M101.3 75.0 A44 44 0 0 1 21.9 82.0"/></g><g fill="#E0A92A"><polygon points="111.5,35.6 88.9,48.6 107.7,55.1"/><polygon points="8.5,84.4 31.1,71.4 12.3,64.9"/></g><text x="60" y="61" text-anchor="middle" dominant-baseline="central" style="font-size:56px;font-weight:800;fill:#E0A92A" font-family="-apple-system,BlinkMacSystemFont,Inter,Arial,sans-serif">$</text></svg><div id="ttl">АРЕНДА</div><div id="lsub">долги · платежи · рейтинг</div><div id="lbar"><i></i></div></div>
 <div class="wrap">
 
   <!-- первый запуск: вставить ссылку на дашборд -->
@@ -80,18 +151,32 @@ svg text{fill:var(--mute);font-size:11px}
       <button class="btn" id="reload" aria-label="Обновить">↻</button>
     </header>
     <div class="err" id="err"></div>
+    <div id="main">
     <div class="kpis" id="kpis"></div>
     <div class="grid">
       <div><div class="card"><h2>Должники</h2>
         <input class="search" id="q" type="search" placeholder="Поиск арендатора">
-        <div class="chips" id="chips"></div><div id="list"></div><button class="more" id="more"></button></div></div>
+        <div class="chips" id="chips"></div><div class="flt" id="flt" style="display:none"></div><div id="list"></div><button class="more" id="more"></button></div>
+        <div class="card"><h2>Оплаты за 7 дней</h2><div id="recent"></div><button class="more" id="moreR"></button></div>
+      </div>
       <div>
         <div class="card"><h2>Долг по объектам</h2><div id="objs"></div></div>
-        <div class="card"><h2>Деньги по месяцам</h2><div class="legend"><span><i style="background:var(--green)"></i>пришло</span><span><i style="background:var(--red)"></i>расходы</span><span><i style="background:var(--amber)"></i>на личные</span></div><div id="months"></div></div>
+        <div class="card"><div class="ch"><h2>Деньги по месяцам</h2><button class="lnk" id="mall">Все месяцы ›</button></div><div class="legend"><span><i style="background:var(--green)"></i>пришло</span><span><i style="background:var(--red)"></i>расходы</span><span><i style="background:var(--amber)"></i>на личные</span></div><div id="months"></div></div>
         <div class="card"><h2>Остатки на счетах</h2><div id="bal"></div></div>
-        <div class="card"><h2>Оплаты за 7 дней</h2><div id="recent"></div><button class="more" id="moreR"></button></div>
         <button class="more" id="logout" style="color:var(--mute)">Сменить ссылку</button>
       </div>
+    </div>
+    </div>
+    <div id="mscr" class="hidden">
+      <button class="btn" id="mback" style="margin:12px 0">‹ Назад</button>
+      <div class="card"><h2>Деньги по месяцам</h2><div class="sub" id="mtot" style="margin:-6px 0 10px"></div><div id="mlist"></div></div>
+    </div>
+    <div id="rscr" class="hidden">
+      <button class="btn" id="rback" style="margin:12px 0">‹ Назад</button>
+      <div class="card"><h2>Рейтинг арендаторов</h2>
+        <div class="sub" style="margin:-6px 0 10px">Насколько вовремя платят аренду. 100 — всегда вовремя, ниже 50 — ненадёжный. Считается с даты начала отсчёта в «Долгах».</div>
+        <div class="chips" id="rsort"><button class="chip on" data-s="score">По рейтингу</button><button class="chip" data-s="debt">По долгу</button></div>
+        <div id="rlist"></div></div>
     </div>
   </div>
 </div>
@@ -103,12 +188,15 @@ document.addEventListener('touchmove',e=>{ if(e.touches.length>1) e.preventDefau
 </script>
 <script>
 const $ = id => document.getElementById(id);
+function hideLoad(){ const l = $('load'); if (l && !l.classList.contains('hide')) setTimeout(() => l.classList.add('hide'), 350); }
+setTimeout(hideLoad, 6000);
 const store = {
   get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
   set(k,v){ try { localStorage.setItem(k,v); } catch(e){} },
   del(k){ try { localStorage.removeItem(k); } catch(e){} }
 };
 const f = n => Math.round(n).toLocaleString('ru-RU');
+const dt3 = t => t ? new Date(t).toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'2-digit'}) : '—';
 const dt = t => t ? new Date(t).toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit'}) : '—';
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -123,7 +211,7 @@ function parseLink(s){
 }
 let LINK = store.get('dashLink');
 
-function showSetup(msg){ $('app').classList.add('hidden'); $('setup').classList.remove('hidden'); $('setupErr').textContent = msg || ''; }
+function showSetup(msg){ hideLoad(); $('app').classList.add('hidden'); $('setup').classList.remove('hidden'); $('setupErr').textContent = msg || ''; }
 $('save').onclick = () => {
   const l = parseLink($('link').value);
   if (!l) { $('setupErr').textContent = 'Это не та ссылка. Нужна ссылка вида https://script.google.com/macros/s/…/exec?k=…'; return; }
@@ -143,7 +231,7 @@ async function load(){
     D = j; store.set('dashData', JSON.stringify(j)); render();
   } catch(e) {
     $('err').textContent = 'Не удалось обновить данные' + (D ? ' — показаны последние сохранённые.' : '. Проверьте интернет и что в Apps Script развернута новая версия.');
-  } finally { loading = false; $('reload').textContent = '↻'; }
+  } finally { loading = false; $('reload').textContent = '↻'; if (!D && LINK) { $('app').classList.remove('hidden'); } hideLoad(); }
 }
 $('reload').onclick = load;
 document.addEventListener('visibilitychange', () => {
@@ -151,22 +239,39 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // ---------- отрисовка ----------
-let cur = 'Все', showAll = false, allR = false, query = '';
+let cur = 'Все', showAll = false, allR = false, query = '', showPct = false, bucket = null;
+// Долг в ставках: 1 ставка = долг на сумму одной месячной аренды (не срок просрочки)
+const BUCKETS = [
+  {k:'lt1', l:'&lt; 1 ставки', c:'',             t:'долг меньше одной ставки (недоплата)'},
+  {k:'m1',  l:'1 ставка',      c:'var(--amber)', t:'должны от 1 до 2 ставок'},
+  {k:'m2',  l:'2 ставки',      c:'#e8590c',      t:'должны от 2 до 3 ставок'},
+  {k:'m3',  l:'3+ ставки',     c:'var(--red)',   t:'должны 3 ставки и больше'}];
+function ratio(t){ return t.rate ? t.debt / t.rate : 0; }
+function bucketOf(t){ const r = ratio(t) + 0.005; return r >= 3 ? 'm3' : r >= 2 ? 'm2' : r >= 1 ? 'm1' : 'lt1'; }
+function plural(n){ const a=n%10,b=n%100; return (a===1&&b!==11)?'арендатор':(a>=2&&a<=4&&(b<12||b>14))?'арендатора':'арендаторов'; }
 function render(){
   D.fetchedAt = Date.now();
   const debtors = D.tenants.filter(t => t.debt > 0);
   const total = debtors.reduce((a,t)=>a+t.debt,0), over = D.tenants.filter(t=>t.debt<0).reduce((a,t)=>a+t.debt,0);
-  const late = debtors.filter(t=>t.months>=2), lateSum = late.reduce((a,t)=>a+t.debt,0);
   const pct = D.accruedMonth ? Math.round(D.rentThisMonth/D.accruedMonth*100) : 0;
   const cash = (D.balances||[]).reduce((a,b)=>a+b.v,0);
+  const flow = D.tenants.reduce((a,t)=>a+(t.rate||0),0);   // месячный арендный поток = сумма ставок
+  const B = BUCKETS.map(b => { const l = debtors.filter(t=>bucketOf(t)===b.k); return {...b, n:l.length, sum:l.reduce((a,t)=>a+t.debt,0)}; });
   $('asof').textContent = 'Обновлено ' + new Date(D.generated).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) + ' · выписки по ' + dt(D.lastStatement);
-  $('kpis').innerHTML = [
-    ['Общий долг', f(total)+' ₽', debtors.length+' должников', 'var(--red)'],
-    ['Долг 2+ месяца', f(lateSum)+' ₽', late.length+' арендаторов', ''],
-    ['Собрано аренды за '+D.monthLabel, f(D.rentThisMonth)+' ₽', pct+'% от того, что уже должны были заплатить', ''],
-    ['На счетах', (D.balances||[]).length ? f(cash)+' ₽' : '—', 'по последним выпискам', ''],
-    ['Авансы и переплаты', f(Math.abs(over))+' ₽', 'заплатили вперёд', '']
-  ].map(k => '<div class="kpi"><div class="l">'+k[0]+'</div><div class="v"'+(k[3]?' style="color:'+k[3]+'"':'')+'>'+k[1]+'</div><div class="s">'+k[2]+'</div></div>').join('');
+  const card = (k, l, v, sub, color, cls) => '<div class="kpi '+(cls||'')+'" data-k="'+k+'"><div class="l">'+l+'</div><div class="v"'+(color?' style="color:'+color+'"':'')+'>'+v+'</div><div class="s">'+sub+'</div></div>';
+  const totalSub = showPct
+    ? (flow ? (Math.round(total/flow*1000)/10).toString().replace('.',',')+'% от месячной аренды ('+f(flow)+' ₽)' : 'нет ставок')
+    : debtors.length+' должников · нажмите — % от аренды';
+  $('kpis').innerHTML =
+    card('total','Общий долг', f(total)+' ₽', totalSub, 'var(--red)', 'tap wide') +
+    '<div class="bk">' + B.map(b => card(b.k, b.l, f(b.sum)+' ₽', b.n+' '+plural(b.n), b.c, 'tap'+(bucket===b.k?' sel':''))).join('') + '</div>' +
+    (()=>{ const R = D.tenants.filter(t=>t.score!=null); if(!R.length) return '';
+      const avg = Math.round(R.reduce((a,t)=>a+t.score,0)/R.length), bad = R.filter(t=>t.score<50).length;
+      const dl = Math.round(R.reduce((a,t)=>a+(t.avgDelay||0),0)/R.length);
+      return card('rating','Рейтинг арендаторов', avg+' из 100', 'ненадёжных '+bad+' · в среднем +'+dl+' дн.', '', 'tap wide'); })() +
+    card('', 'Собрано аренды за '+D.monthLabel, f(D.rentThisMonth)+' ₽', pct+'% от того, что уже должны были заплатить', '', 'wide') +
+    card('', 'На счетах', (D.balances||[]).length ? f(cash)+' ₽' : '—', 'по последним выпискам') +
+    card('', 'Авансы и переплаты', f(Math.abs(over))+' ₽', 'заплатили вперёд');
 
   const objs = [...new Set(debtors.map(t=>t.obj))];
   if (cur !== 'Все' && objs.indexOf(cur) < 0) cur = 'Все';
@@ -180,45 +285,124 @@ function render(){
   renderMonths();
   $('bal').innerHTML = (D.balances||[]).map(b=>'<div class="pay"><span>'+esc(b.e)+'</span><b class="num">'+f(b.v)+' ₽</b></div>').join('') || '<div class="sub">Нет данных</div>';
   renderRecent();
-  $('setup').classList.add('hidden'); $('app').classList.remove('hidden');
+  $('setup').classList.add('hidden'); $('app').classList.remove('hidden'); hideLoad();
+  if (!$('rscr').classList.contains('hidden')) renderRating();
+  if (!$('mscr').classList.contains('hidden')) renderAllMonths();
 }
 
 function renderList(){
   const debtorsAll = query ? D.tenants : D.tenants.filter(t => t.debt > 0);   // при поиске показываем и тех, у кого долга нет
-  const rows = debtorsAll.filter(t => (cur==='Все' || t.obj===cur) && (!query || t.name.toLowerCase().indexOf(query) >= 0));
+  const rows = debtorsAll.filter(t => (cur==='Все' || t.obj===cur) && (!query || t.name.toLowerCase().indexOf(query) >= 0) && (!bucket || query || (t.debt>0 && bucketOf(t)===bucket)));
+  const bb = BUCKETS.find(b=>b.k===bucket);
+  $('flt').innerHTML = (bucket && !query) ? '<span>Показаны: <b>'+bb.l+'</b> — '+bb.t+'</span><button id="fltx">Сбросить</button>' : '';
+  $('flt').style.display = (bucket && !query) ? '' : 'none';
   const max = Math.max(1, ...rows.map(t => t.debt)), vis = (showAll || query) ? rows : rows.slice(0,15);
   $('list').innerHTML = vis.map(t => {
-    const c = t.months>=3?'r':t.months>=1?'a':'g';
+    const bk = bucketOf(t), c = bk==='m3'?'r':bk==='lt1'?'g':'a';
     const mo = t.debt <= 0 ? '<span class="tag" style="background:var(--green)">'+(t.debt<0?'аванс':'долга нет')+'</span>'
-      : t.months>=1 ? '<span class="tag '+c+'">'+String(t.months).replace('.',',')+' мес.</span>' : '<span class="tag g">&lt; мес.</span>';
-    const pays = (t.pays||[]).length ? (t.pays.map(p=>'<div><span>'+dt(p.d)+'</span><b class="num">'+f(p.sum)+' ₽</b></div>').join('')) : '<div class="sub">Оплат аренды в выписках нет</div>';
+      : t.months>=1 ? '<span class="tag '+c+'">'+String(t.months).replace('.',',')+' ст.</span>' : '<span class="tag g">&lt; 1 ст.</span>';
+    const P = t.pays||[];
+    const pays = P.length ? P.map((p,i)=>'<div'+(i>=3?' class="x"':'')+'><span>'+dt3(p.d)+'</span><b class="num">'+f(p.sum)+' ₽</b></div>').join('') +
+      (P.length>3 ? '<button class="pall">Все платежи ('+P.length+') · '+f(P.reduce((a,p)=>a+p.sum,0))+' ₽</button>' : '') : '<div class="sub">Оплат аренды в выписках нет</div>';
     return '<div class="row"><div class="nm">'+esc(t.name)+'</div><div class="amt">'+f(t.debt)+' ₽</div>'+
       '<div class="track"><div class="fill" style="width:'+Math.max(2,Math.max(0,t.debt)/max*100)+'%;background:var(--'+(c==='r'?'red':c==='a'?'amber':'mute')+')"></div></div>'+
       '<div class="meta">'+mo+'<span>'+esc(t.obj)+'</span><span>ставка '+f(t.rate)+'</span><span>посл. оплата '+dt(t.lastPay)+'</span></div>'+
-      '<div class="pays"><div class="sub" style="margin-bottom:4px">Последние оплаты аренды</div>'+pays+'</div></div>';
+      '<div class="pays"><div class="sub" style="margin-bottom:4px">Оплаты аренды</div>'+pays+'</div></div>';
   }).join('') || '<div class="sub">'+(query?'Не найдено':'Долгов нет')+'</div>';
   $('more').textContent = (!query && rows.length>15) ? (showAll?'Свернуть':'Показать всех ('+rows.length+')') : '';
 }
-$('list').onclick = e => { const r = e.target.closest('.row'); if (r) r.classList.toggle('open'); };
+$('list').onclick = e => {
+  const b = e.target.closest('.pall');
+  if (b) { const box = b.closest('.pays'), all = box.classList.toggle('all');
+    b.dataset.t = b.dataset.t || b.textContent; b.textContent = all ? 'Скрыть — оставить 3 последних' : b.dataset.t; return; }
+  if (e.target.closest('.pays')) return;
+  const r = e.target.closest('.row'); if (r) r.classList.toggle('open'); };
 $('chips').onclick = e => { if(e.target.tagName!=='BUTTON') return; cur = e.target.textContent; showAll=false;
   [...$('chips').children].forEach(b=>b.classList.toggle('on', b.textContent===cur)); renderList(); };
 $('more').onclick = () => { showAll=!showAll; renderList(); };
+$('kpis').onclick = e => { const k = e.target.closest('.kpi.tap'); if (!k) return;
+  if (k.dataset.k === 'rating') { openRating(); return; }
+  if (k.dataset.k === 'total') showPct = !showPct;
+  else { bucket = bucket === k.dataset.k ? null : k.dataset.k; showAll = true;
+    setTimeout(() => $('list').scrollIntoView({behavior:'smooth', block:'start'}), 50); }
+  render(); };
+let rsort = 'score';
+const MN = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+const scCls = v => v==null?'sn':v>=75?'sg':v>=50?'sy':'sr';
+const dlCls = d => d<=3?'sg':d<=15?'sy':'sr';
+const dn = n => { const a=n%10,b=n%100; return n+' '+((a===1&&b!==11)?'день':(a>=2&&a<=4&&(b<12||b>14))?'дня':'дней'); };
+function openRating(){ $('main').classList.add('hidden'); $('rscr').classList.remove('hidden'); renderRating(); scrollTo(0,0); }
+$('rback').onclick = () => { $('rscr').classList.add('hidden'); $('main').classList.remove('hidden'); scrollTo(0,0); };
+$('rsort').onclick = e => { const b=e.target.closest('button'); if(!b) return; rsort=b.dataset.s;
+  [...$('rsort').children].forEach(x=>x.classList.toggle('on',x===b)); renderRating(); };
+$('rlist').onclick = e => { const r=e.target.closest('.rr'); if(r) r.classList.toggle('open'); };
+function renderRating(){
+  const L = D.tenants.slice().sort((a,b)=> rsort==='debt' ? b.debt-a.debt : ((a.score??999)-(b.score??999)) || b.debt-a.debt);
+  $('rlist').innerHTML = L.map(t => {
+    const sub = (t.avgDelay!=null ? 'в среднем +'+dn(t.avgDelay)+' · ' : '') + 'ставка '+f(t.rate)+' · день оплаты '+t.day;
+    const months = (t.hist||[]).map(m => {
+      const md = new Date(m.due), name = MN[md.getMonth()][0].toUpperCase()+MN[md.getMonth()].slice(1)+' '+md.getFullYear();
+      const st = m.open ? (m.delay>0 ? 'не оплачено, '+dn(m.delay)+' просрочки' : 'срок оплаты сегодня')
+               : (m.delay>0 ? '+'+dn(m.delay)+', закрыто '+dt(m.cover) : 'вовремя');
+      const pp = m.pays.length ? m.pays.length+' '+(m.pays.length===1?'платёж':m.pays.length<5?'платежа':'платежей')+' ('+m.pays.map(f).join(', ')+')' : 'платежей не было';
+      return '<div class="mrow"><div class="mt"><b>'+name+'</b><span class="pill '+(m.open&&m.delay===0?'sn':dlCls(m.delay))+'">'+st+'</span></div>'+
+        '<div class="sub">'+(m.disc?'по скидке ':'начислено ')+f(m.amt)+' ₽ '+dt(m.due)+' · '+pp+'</div>'+
+        '<div class="sub">Долг '+(m.current?'на сегодня':'на конец месяца')+': <b style="color:var(--ink)">'+f(m.debtEnd)+' ₽</b></div></div>';
+    }).join('') || '<div class="sub" style="padding:8px 0">Начислений с даты начала отсчёта ещё не было</div>';
+    return '<div class="rr"><div class="rh"><span class="sc '+scCls(t.score)+'">'+(t.score??'—')+'</span><div class="nm"><div style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(t.name)+'</div><div class="sub" style="font-size:12px;white-space:normal">'+sub+'</div></div><div class="amt">'+f(t.debt)+' ₽</div></div><div class="rm">'+months+'</div></div>';
+  }).join('') || '<div class="sub">Нет данных</div>';
+}
+function openMonths(){ $('main').classList.add('hidden'); $('mscr').classList.remove('hidden'); renderAllMonths(); scrollTo(0,0); }
+$('mall').onclick = openMonths;
+$('mback').onclick = () => { $('mscr').classList.add('hidden'); $('main').classList.remove('hidden'); scrollTo(0,0); };
+function renderAllMonths(){
+  const M = (D.months||[]).slice().reverse();
+  if (!M.length) { $('mlist').innerHTML = '<div class="sub">Нет данных</div>'; $('mtot').textContent=''; return; }
+  const T = M.reduce((a,m)=>({inc:a.inc+m.inc,rent:a.rent+m.rent,exp:a.exp+m.exp,own:a.own+m.own}),{inc:0,rent:0,exp:0,own:0});
+  const mx = Math.max(...M.map(m=>Math.max(m.inc,m.exp+m.own)))||1;
+  const bar = (v,c) => '<div class="mb"><div style="width:'+Math.max(1,v/mx*100)+'%;background:'+c+'"></div></div>';
+  const row = (l,c,v,extra) => '<div class="mline"><span><i style="background:'+c+'"></i>'+l+'</span><b class="num">'+f(v)+' ₽</b></div>'+(extra||'');
+  const card = (title, m, sum) => '<div class="mcard'+(sum?' tot':'')+'"><div class="mh">'+title+'</div>'+
+    row('Пришло','var(--green)',m.inc,'<div class="sub" style="padding-left:16px;margin:-2px 0 2px">из них аренда '+f(m.rent)+' ₽</div>')+(sum?'':bar(m.inc,'var(--green)'))+
+    row('Расходы','var(--red)',m.exp)+row('На личные','var(--amber)',m.own)+(sum?'':bar(m.exp+m.own,'linear-gradient(90deg,var(--red) '+(m.exp/(m.exp+m.own||1)*100)+'%,var(--amber) 0)'))+
+    '<div class="mline" style="border-top:1px solid var(--line);margin-top:4px;padding-top:6px"><span>Остаток</span><b class="num" style="color:'+(m.inc-m.exp-m.own>=0?'var(--green)':'var(--red)')+'">'+f(m.inc-m.exp-m.own)+' ₽</b></div></div>';
+  $('mtot').textContent = 'Всего месяцев: '+M.length+', с '+M[M.length-1].m.split('-').reverse().join('.')+' по '+M[0].m.split('-').reverse().join('.');
+  $('mlist').innerHTML = card('Итого за всё время', T, true) + M.map(m => { const mi=+m.m.slice(5)-1;
+    return card(MONF[mi][0].toUpperCase()+MONF[mi].slice(1)+' '+m.m.slice(0,4), m); }).join('');
+}
+$('flt').onclick = e => { if (e.target.id === 'fltx') { bucket = null; showAll = false; render(); } };
 $('q').oninput = e => { query = e.target.value.trim().toLowerCase(); renderList(); };
 
+let selM = null, selT = null;
+const MONF = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
 function renderMonths(){
-  const M = D.months||[]; if(!M.length){ $('months').innerHTML='<div class="sub">Нет данных</div>'; return; }
+  const M = (D.months||[]).slice(-6); if(!M.length){ $('months').innerHTML='<div class="sub">Нет данных</div>'; return; }
+  if (selM == null || selM >= M.length) selM = M.length-1;
   const W=360,H=170,pad=24,bw=(W-pad)/M.length, max=Math.max(...M.map(m=>Math.max(m.inc,m.exp+m.own)))||1;
   const y=v=>H-20-(v/max)*(H-34); let s='';
-  M.forEach((m,i)=>{ const x=pad+i*bw, w=Math.min(14,bw/2.6);
-    s+='<rect x="'+(x+bw/2-w-1)+'" y="'+y(m.inc)+'" width="'+w+'" height="'+(H-20-y(m.inc))+'" rx="2" fill="var(--green)"></rect>';
-    s+='<rect x="'+(x+bw/2+1)+'" y="'+y(m.exp)+'" width="'+w+'" height="'+(H-20-y(m.exp))+'" rx="2" fill="var(--red)"></rect>';
-    s+='<rect x="'+(x+bw/2+1)+'" y="'+y(m.exp+m.own)+'" width="'+w+'" height="'+(y(m.exp)-y(m.exp+m.own))+'" rx="2" fill="var(--amber)"></rect>';
+  M.forEach((m,i)=>{ const x=pad+i*bw, w=Math.min(16,bw/2.6), op = i===selM ? 1 : .35;
+    s+='<g opacity="'+op+'">';
+    s+='<rect x="'+(x+bw/2-w-1)+'" y="'+y(m.inc)+'" width="'+w+'" height="'+(H-20-y(m.inc))+'" rx="3" fill="var(--green)"></rect>';
+    s+='<rect x="'+(x+bw/2+1)+'" y="'+y(m.exp)+'" width="'+w+'" height="'+(H-20-y(m.exp))+'" rx="3" fill="var(--red)"></rect>';
+    s+='<rect x="'+(x+bw/2+1)+'" y="'+y(m.exp+m.own)+'" width="'+w+'" height="'+(y(m.exp)-y(m.exp+m.own))+'" rx="3" fill="var(--amber)"></rect></g>';
     const lab=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'][+m.m.slice(5)-1];
-    s+='<text x="'+(x+bw/2)+'" y="'+(H-5)+'" text-anchor="middle">'+lab+'</text>'; });
+    s+='<text x="'+(x+bw/2)+'" y="'+(H-5)+'" text-anchor="middle"'+(i===selM?' style="fill:var(--gold);font-weight:700"':'')+'>'+lab+'</text>';
+    // невидимые зоны нажатия: левая половина — «пришло», правая — расходы (верхний кусок — на личные)
+    const yo = Math.min(y(m.exp+m.own), y(m.exp)-6);
+    s+='<rect data-i="'+i+'" data-t="inc" x="'+x+'" y="0" width="'+(bw/2)+'" height="'+H+'" fill="transparent"></rect>';
+    s+='<rect data-i="'+i+'" data-t="own" x="'+(x+bw/2)+'" y="0" width="'+(bw/2)+'" height="'+(yo+ (y(m.exp)-yo)/2)+'" fill="transparent"></rect>';
+    s+='<rect data-i="'+i+'" data-t="exp" x="'+(x+bw/2)+'" y="'+(yo+(y(m.exp)-yo)/2)+'" width="'+(bw/2)+'" height="'+(H-(yo+(y(m.exp)-yo)/2))+'" fill="transparent"></rect>';
+  });
   s+='<text x="0" y="12">'+(max/1e6).toFixed(1).replace('.',',')+' млн</text>';
-  const L = M[M.length-1];
-  $('months').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" width="100%">'+s+'</svg><div class="sub">'+L.m.split('-').reverse().join('.')+': пришло '+f(L.inc)+' (аренда '+f(L.rent)+'), расходы '+f(L.exp)+', на личные '+f(L.own)+'</div>';
+  const L = M[selM], mi = +L.m.slice(5)-1, nm = MONF[mi][0].toUpperCase()+MONF[mi].slice(1)+' '+L.m.slice(0,4);
+  const line = (t,c,l,v,extra) => '<div class="mline'+(selT===t?' on':'')+'"><span><i style="background:'+c+'"></i>'+l+'</span><b class="num">'+f(v)+' ₽</b></div>'+(extra||'');
+  $('months').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="cursor:pointer">'+s+'</svg>'+
+    '<div class="mbox"><div class="mh">'+nm+(selM===M.length-1?' · текущий месяц':'')+'</div>'+
+    line('inc','var(--green)','Пришло',L.inc,'<div class="sub" style="padding-left:16px;margin:-2px 0 4px">из них аренда '+f(L.rent)+' ₽</div>')+
+    line('exp','var(--red)','Расходы',L.exp)+line('own','var(--amber)','На личные',L.own)+
+    '<div class="sub" style="margin-top:4px">Нажмите на столбик, чтобы посмотреть другой месяц</div></div>';
 }
+$('months').onclick = e => { const r = e.target.closest('rect[data-i]'); if (!r) return; selM = +r.dataset.i; selT = r.dataset.t; renderMonths(); };
 function renderRecent(){
   const R = D.recent||[], v = allR ? R : R.slice(0,12);
   $('recent').innerHTML = v.map(r=>'<div class="pay"><span>'+dt(r.d)+' · '+esc(r.who)+'</span><b class="num">'+f(r.sum)+'</b></div>').join('') || '<div class="sub">Оплат не было</div>';
